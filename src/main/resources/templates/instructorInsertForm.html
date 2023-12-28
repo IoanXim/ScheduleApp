@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en", xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Instructor</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/instructor/search" class="btn">Search Instructor</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/instructor/insert}" th:method="post" th:object="${instructorInsertDTO}">
+    <label for="firstname">First Name</label>
+    <input type="text" th:field="*{firstname}" id="firstname">
+
+    <label for="lastname">Last Name</label>
+    <input type="text" th:field="*{lastname}" id="lastname">
+
+    <label for="ssn">SSN</label>
+    <input type="text" th:field="*{ssn}" id="ssn">
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

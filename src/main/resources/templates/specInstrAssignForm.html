@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Specialties to Instructors</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/specinstr/search" class="btn">Search Specialty - Instructor</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/specinstr/assign}" th:method="post" th:object="${specInstrDTO}">
+    <label for="instructor">Select Instructor:</label>
+    <select id="instructor" th:field="*{instrId}">
+        <option th:each="instructor : ${instructors}" th:value="${instructor.id}" th:text="${instructor.firstname + ' ' + instructor.lastname}"></option>
+    </select>
+
+    <label for="specialty">Select Specialty:</label>
+    <select id="specialty" th:field="*{specId}">
+        <option th:each="specialty : ${specialties}" th:value="${specialty.id}" th:text="${specialty.name}"></option>
+    </select>
+
+    <button type="submit">Assign</button>
+</form>
+</body>
+</html>

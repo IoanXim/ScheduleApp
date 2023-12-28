@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en", xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Client</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/client/insert" class="btn">Add Client</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/client/search}" th:method="post">
+    <label for="lastname">Last Name</label>
+    <input type="text" id="lastname" name="lastname">
+    <button type="submit">Search</button>
+</form>
+
+<table border="1" th:method="get">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Gender</th>
+        <th>Birthday</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.firstname}"></td>
+        <td th:text="${client.lastname}"></td>
+        <td th:text="${client.gender}"></td>
+        <td th:text="${client.birthday}"></td>
+        <td>
+            <form th:action="@{/client/edit}" th:method="get">
+                <input type="hidden" name="id" th:value="${client.id}" />
+                <button type="submit">Edit</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/client/delete}" th:method="post">
+                <input type="hidden" name="id" th:value="${client.id}" />
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

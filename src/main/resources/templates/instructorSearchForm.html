@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en", xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Instructor</title>
+  <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/instructor/insert" class="btn">Add Instructor</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/instructor/search}" th:method="post">
+  <label for="lastname">Last Name</label>
+  <input type="text" id="lastname" name="lastname">
+  <button type="submit">Search</button>
+</form>
+
+<table border="1" th:method="get">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>SSN</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="instructor : ${instructors}">
+    <td th:text="${instructor.id}"></td>
+    <td th:text="${instructor.firstname}"></td>
+    <td th:text="${instructor.lastname}"></td>
+    <td th:text="${instructor.ssn}"></td>
+    <td>
+      <form th:action="@{/instructor/edit}" th:method="get">
+        <input type="hidden" name="id" th:value="${instructor.id}" />
+        <button type="submit">Edit</button>
+      </form>
+    </td>
+    <td>
+      <form th:action="@{/instructor/delete}" th:method="post">
+        <input type="hidden" name="id" th:value="${instructor.id}" />
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

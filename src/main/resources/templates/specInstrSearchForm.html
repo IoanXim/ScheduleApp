@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Search SpecInstr</title>
+  <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/specinstr/assign" class="btn">Assign Specialty to Instructor</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/specinstr/instructors/search}" th:method="post">
+  <label for="lastname">Search Instructors by Last Name:</label>
+  <input type="text" id="lastname" name="lastname">
+  <button type="submit">Search Instructors</button>
+</form>
+
+<form th:action="@{/specinstr/specialties/search}" th:method="post">
+  <label for="name">Search Specialties by Name:</label>
+  <input type="text" id="name" name="name">
+  <button type="submit">Search Specialties</button>
+</form>
+</body>
+</html>

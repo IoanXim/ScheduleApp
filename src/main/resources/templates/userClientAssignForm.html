@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Users to Clients</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/userclient/search" class="btn">Search User - Client</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/userclient/assign}" th:method="post" th:object="${userClientDTO}">
+    <label for="user">Select User:</label>
+    <select id="user" th:field="*{userId}">
+        <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"></option>
+    </select>
+
+    <label for="client">Select Client:</label>
+    <select id="client" th:field="*{clientId}">
+        <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.firstname} + ${client.lastname}"></option>
+    </select>
+
+    <button type="submit">Assign</button>
+</form>
+</body>
+</html>

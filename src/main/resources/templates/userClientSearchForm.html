@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search UserClient</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/userclient/assign" class="btn">Assign User to Client</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/userclient/users/search}" th:method="post">
+    <label for="username">Search Users by username:</label>
+    <input type="text" id="username" name="username">
+    <button type="submit">Search Users</button>
+</form>
+
+<form th:action="@{/userclient/clients/search}" th:method="post">
+    <label for="lastname">Search Clients by Lastname:</label>
+    <input type="text" id="lastname" name="lastname">
+    <button type="submit">Search Clients</button>
+</form>
+</body>
+</html>

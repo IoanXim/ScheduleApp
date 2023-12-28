@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en", xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Specialty</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/specialty/insert" class="btn">Add Specialty</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/specialty/search}" th:method="post">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name">
+    <button type="submit">Search</button>
+</form>
+
+<table border="1" th:method="get">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="specialty : ${specialties}">
+        <td th:text="${specialty.id}"></td>
+        <td th:text="${specialty.name}"></td>
+        <td>
+            <form th:action="@{/specialty/edit}" th:method="get">
+                <input type="hidden" name="id" th:value="${specialty.id}" />
+                <button type="submit">Edit</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/specialty/delete}" th:method="post">
+                <input type="hidden" name="id" th:value="${specialty.id}" />
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

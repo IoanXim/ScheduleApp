@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Client</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/client/search" class="btn">Search Client</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/client/edit}" th:method="post" th:object="${client}">
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="firstname">First Name</label>
+    <input type="text" th:field="*{firstname}" id="firstname">
+
+    <label for="lastname">Last Name</label>
+    <input type="text" th:field="*{lastname}" id="lastname">
+
+    <label for="gender">Gender</label>
+    <select id="gender" th:field="*{gender}">
+        <option value="M">Male</option>
+        <option value="F">Female</option>
+        <option value="O">Other</option>
+    </select>
+
+    <label for="birthday">Birthday</label>
+    <input type="date" th:field="*{birthday}" id="birthday">
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

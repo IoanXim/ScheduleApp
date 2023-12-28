@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org", lang="en">
+<head>
+    <title>Weekly Schedule</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Weekly Schedule</h1>
+<a href="/client/schedule" class="add-enrollment-btn">Add Enrollment</a>
+<a href="/login" class="btn">Logout</a>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th th:text="Monday"></th>
+            <th th:text="Tuesday"></th>
+            <th th:text="Wednesday"></th>
+            <th th:text="Thursday"></th>
+            <th th:text="Friday"></th>
+            <th th:text="Saturday"></th>
+            <th th:text="Sunday"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="timeSlot : ${timeSlots}">
+            <td th:text="${timeSlot}"></td>
+
+            <td th:each="day : ${daysOfWeek}">
+                <div th:each="sessionDetails : ${sessionDetailsList}" th:if="${sessionDetails.dayId == day && sessionDetails.slot == timeSlot}">
+                    <p th:utext="${sessionDetails.instructor.lastname + ' - ' + sessionDetails.specialty.name + '<br>' + 'Room :' + sessionDetails.room.id + '<br>' + sessionDetails.hour + '/' + sessionDetails.duration + '<br>'}">
+                    </p>
+                    <button th:attr="data-roomId=${sessionDetails.session.roomId}, data-dayId=${sessionDetails.session.dayId}, data-instrId=${sessionDetails.session.instrId}, data-specId=${sessionDetails.session.specId}, data-startingTime=${sessionDetails.session.startingTime}, data-endingTime=${sessionDetails.session.endingTime}" onclick="deleteEnrollment(this)" class="delete-button">Delete</button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+
+
+<script>
+
+    function mergeCellsVertically(table) {
+        var rows = table.rows;
+
+        for (var i = 0; i < rows[0].cells.length; i++) {
+            for (var j = 0; j < rows.length; j++) {
+                var currentCell = rows[j].cells[i];
+                var lines = currentCell.innerHTML.split('<br>');
+
+                for (var k = 0; k < lines.length; k++) {
+                    if (/1\/\d+/.test(lines[k].trim())) {
+                        var n = parseInt(lines[k].trim().split('/')[1]);
+
+                        lines.splice(k, 1);
+
+                        currentCell.innerHTML = lines.join('<br>');
+
+                        for (var m = 1; m < n; m++) {
+                            rows[j + m].cells[i].style.display = 'none';
+                        }
+
+                        currentCell.rowSpan = n;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
+    $(document).ready(function() {
+        mergeCellsVerticallyForAllTables();
+    });
+
+    function mergeCellsVerticallyForAllTables() {
+        $('table').each(function() {
+            mergeCellsVertically(this);
+        });
+    }
+    function deleteEnrollment(button) {
+        var roomId = button.getAttribute("data-roomId")
+        var dayId = button.getAttribute("data-dayId")
+        var startingTime = button.getAttribute("data-startingTime");
+        var endingTime = button.getAttribute("data-endingTime");
+
+
+        $.ajax({
+            type: "POST",
+            url: "/client/deleteEnrollment",
+            data: { roomId: roomId, dayId: dayId, startingTime: startingTime, endingTime: endingTime },
+            success: function(response) {
+                alert(response);
+                location.reload();
+            },
+            error: function (xhr, status, error) {
+
+                var errorMessage = xhr.responseText;
+                alert("Error: " + errorMessage);
+            }
+        });
+    }
+
+
+</script>

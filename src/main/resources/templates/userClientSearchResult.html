@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>UserClient Search Result</title>
+  <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/userclient/search" class="btn">Search User - Client</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<h2>User - Client Search Result</h2>
+<table border="1">
+  <thead>
+  <tr>
+    <th>User ID</th>
+    <th>Username</th>
+    <th>Client ID</th>
+    <th>Client Lastname</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="userClientDetails : ${userClientDetailsList}">
+    <td th:text="${userClientDetails.user.id}"></td>
+    <td th:text="${userClientDetails.user.username}"></td>
+    <td th:text="${userClientDetails.client.id}"></td>
+    <td th:text="${userClientDetails.client.lastname}"></td>
+    <td>
+      <form th:action="@{/userclient/delete}" th:method="post">
+        <input type="hidden" name="userId" th:value="${userClientDetails.user.id}" />
+        <input type="hidden" name="clientId" th:value="${userClientDetails.client.id}" />
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
+

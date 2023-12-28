@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en", xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Specialty</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/specialty/search" class="btn">Search Specialty</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/specialty/insert}" th:method="post" th:object="${specialtyInsertDTO}">
+    <label for="firstname">Name</label>
+    <input type="text" th:field="*{name}" id="firstname">
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

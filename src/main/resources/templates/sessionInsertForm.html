@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Session</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/schedule" class="btn">Schedule</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<h1>Add Session</h1>
+
+<form th:action="@{/schedule/insert}" method="post">
+    <label for="instructorSpecialty">Instructor and Specialty:</label>
+    <select id="instructorSpecialty" name="instructorSpecialty">
+        <option th:each="instructorSpecialty : ${specInstrDetailsList}"
+                th:value="${instructorSpecialty.instructor.id + '-' + instructorSpecialty.specialty.id}">
+
+            <span th:text="${instructorSpecialty.instructor.lastname} + ' - ' + ${instructorSpecialty.specialty.name}"></span>
+        </option>
+    </select><br>
+
+    <label for="room">Room:</label>
+    <select id="room" name="room">
+        <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.id}"></option>
+    </select><br>
+
+    <label for="dayOfWeek">Day of the Week:</label>
+    <select id="dayOfWeek" name="dayOfWeek">
+        <option th:value="${1}" th:text="${'Monday'}"></option>
+        <option th:value="${2}" th:text="${'Tuesday'}"></option>
+        <option th:value="${3}" th:text="${'Wednesday'}"></option>
+        <option th:value="${4}" th:text="${'Thursday'}"></option>
+        <option th:value="${5}" th:text="${'Friday'}"></option>
+        <option th:value="${6}" th:text="${'Saturday'}"></option>
+        <option th:value="${7}" th:text="${'Sunday'}"></option>
+    </select><br>
+
+    <label for="timeSlot">Time Slot:</label>
+    <select id="timeSlot" name="timeSlot">
+        <option th:each="timeSlot : ${timeSlots}" th:value="${timeSlot}" th:text="${timeSlot}"></option>
+    </select><br>
+
+    <label for="duration">Duration:</label>
+    <select id="duration" name="duration">
+        <option th:each="duration : ${durations}" th:value="${duration}" th:text="${duration}"></option>
+    </select><br>
+
+    <input type="submit" value="Add">
+</form>
+</body>
+</html>

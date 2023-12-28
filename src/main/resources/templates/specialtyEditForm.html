@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Specialty</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/specialty/search" class="btn">Search Specialty</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/specialty/edit}" th:method="post" th:object="${specialty}">
+    <input type="hidden" th:field="*{id}" />
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name">
+
+
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

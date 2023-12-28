@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SpecInstr Search Result</title>
+    <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/specinstr/search" class="btn">Search Specialty - Instructor</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<h2>SpecInstr Search Result</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Instructor ID</th>
+        <th>Instructor Name</th>
+        <th>Specialty ID</th>
+        <th>Specialty Name</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="specInstrDetails : ${specInstrDetailsList}">
+        <td th:text="${specInstrDetails.instructor.id}"></td>
+        <td th:text="${specInstrDetails.instructor.firstname + ' ' + specInstrDetails.instructor.lastname}"></td>
+        <td th:text="${specInstrDetails.specialty.id}"></td>
+        <td th:text="${specInstrDetails.specialty.name}"></td>
+        <td>
+            <form th:action="@{/specinstr/delete}" th:method="post">
+                <input type="hidden" name="instructorId" th:value="${specInstrDetails.instructor.id}" />
+                <input type="hidden" name="specialtyId" th:value="${specInstrDetails.specialty.id}" />
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en", xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Room</title>
+  <link rel="stylesheet" href="/styling/styling.css">
+</head>
+<body>
+<a href="/room/insert" class="btn">Add Room</a>
+<a href="/admin/menu" class="menu-btn">Admin Menu</a>
+<form th:action="@{/room/search}" th:method="post">
+  <label for="id">Room ID Number</label>
+  <input type="text" id="id" name="id">
+  <button type="submit">Search</button>
+</form>
+
+<table border="1" th:method="get">
+  <thead>
+  <tr>
+    <th>ID</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="room : ${rooms}">
+    <td th:text="${room.id}"></td>
+    <td>
+      <form th:action="@{/room/delete}" th:method="get">
+        <label>
+          <input type="hidden" name="id" th:value="${room.id}" />
+        </label>
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>
